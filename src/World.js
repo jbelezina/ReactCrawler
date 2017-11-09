@@ -3,6 +3,11 @@ import './World.css';
 
 class World extends Component {
 
+  constructor(){
+    super();
+
+    this.keyHandling = this.keyHandling.bind(this);
+  }
 
   moveRight(){
     this.props.movePlayer("right");
@@ -23,6 +28,33 @@ class World extends Component {
   logState(){
     console.log(this.props.appstate)
   }
+
+  
+
+  keyHandling(e) {		    		    
+    if (e.keyCode === 37) { 
+      this.moveLeft();
+    } else if (e.keyCode === 39) { 
+      this.moveRight();
+    } else if (e.keyCode === 38) {
+      this.moveUp();
+    } else if (e.keyCode === 40) {
+      this.moveDown();
+    }
+  }		  		  
+  
+  componentDidMount() {		    // Add Event Listener on compenent mount		    
+    window.addEventListener("keydown", this.keyHandling);
+  }		  	
+  
+  componentWillUnmount() {     // Remove event listener on compenent unmount		    
+    window.removeEventListener("keydown", this.keyHandling);		  
+  }
+
+
+
+
+
   
   render() {
 
