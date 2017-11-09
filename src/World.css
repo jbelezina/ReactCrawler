@@ -1,0 +1,25 @@
+.wall {
+  height: 10px;
+  width: 10px;
+  float:left;
+  background-color: green;
+}
+
+.floor {
+  height: 10px;
+  width: 10px;
+  float:left;
+  background-color: yellow;
+}
+
+.player {
+  height: 10px;
+  width: 10px;
+  float:left;
+  background-color: red;
+}
+
+.worldSize {
+  width: 100px;
+}
+
