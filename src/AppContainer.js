@@ -15,19 +15,19 @@ class AppContainer extends Component {
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,0,0,0,1,0,0,0,3,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,0,0,0,1,0,0,0,3,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,0,0,0,1,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -38,6 +38,7 @@ class AppContainer extends Component {
     }
 
     this.movePlayer = this.movePlayer.bind(this);
+    this.collectHealth = this.collectHealth.bind(this);
   }
 
   movePlayer(direction){
@@ -49,14 +50,21 @@ class AppContainer extends Component {
 
     if (direction === "right" && worldMap[playerRowIndex][playerColumnIndex + 1] !== 1) { // if right and no wall ahead
       let newPlayerColumnIndex = playerColumnIndex +1;
+      if(worldMap[playerRowIndex][newPlayerColumnIndex] === 3) { // collect health if health item ahead
+        this.collectHealth()
+      }
       newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
       newWorldMap[playerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player
       this.setState({
         worldMap: newWorldMap,
         playerColumnIndex: newPlayerColumnIndex
       })
+      
     } else if (direction === "left" && worldMap[playerRowIndex][playerColumnIndex - 1] !== 1) { // if left and no wall ahead
       let newPlayerColumnIndex = playerColumnIndex -1;
+      if(worldMap[playerRowIndex][newPlayerColumnIndex] === 3) { // collect health if health item ahead
+        this.collectHealth()
+      }
       newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
       newWorldMap[playerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player
       this.setState({
@@ -65,6 +73,9 @@ class AppContainer extends Component {
       })
     } else if (direction === "up" && worldMap[playerRowIndex -1][playerColumnIndex] !== 1) {
       let newPlayerRowIndex = playerRowIndex -1;
+      if(worldMap[newPlayerRowIndex][playerColumnIndex] === 3) { // collect health if health item ahead
+        this.collectHealth()
+      }
       newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
       newWorldMap[newPlayerRowIndex][playerColumnIndex] = 2; // set target cell to player
       this.setState({
@@ -73,6 +84,9 @@ class AppContainer extends Component {
       }) 
     } else if (direction === "down" && worldMap[playerRowIndex +1][playerColumnIndex] !== 1) {
       let newPlayerRowIndex = playerRowIndex +1;
+      if(worldMap[newPlayerRowIndex][playerColumnIndex] === 3) { // collect health if health item ahead
+        this.collectHealth()
+      }
       newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
       newWorldMap[newPlayerRowIndex][playerColumnIndex] = 2; // set target cell to player
       this.setState({
@@ -80,6 +94,10 @@ class AppContainer extends Component {
         playerRowIndex: newPlayerRowIndex
       })
     }
+  }
+
+  collectHealth(){
+    this.setState({health: this.state.health + 10})
   }
 
   render() {

@@ -34,7 +34,7 @@ class World extends Component {
   keyHandling(e) {		    		    
     if (e.keyCode === 37) { 
       this.moveLeft();
-    } else if (e.keyCode === 39) { 
+    } else if (e.keyCode === 39) { //
       this.moveRight();
     } else if (e.keyCode === 38) {
       this.moveUp();
@@ -51,11 +51,6 @@ class World extends Component {
     window.removeEventListener("keydown", this.keyHandling);		  
   }
 
-
-
-
-
-  
   render() {
 
     let key=0
@@ -72,6 +67,12 @@ class World extends Component {
         } else if (cell === 2) {
           key++;
           return <div className="player" key={key}></div>          
+        } else if (cell === 3) {
+          key++;
+          return <div className="health" key={key}></div>          
+        } else if (cell === 4) {
+          key++;
+          return <div className="enemy" key={key}></div>          
         }
       }); 
     });
