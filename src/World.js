@@ -73,6 +73,9 @@ class World extends Component {
         } else if (cell === 4) {
           key++;
           return <div className="enemy" key={key}></div>          
+        } else if (cell === 5) {
+          key++;
+          return <div className="weapon" key={key}></div>          
         }
       }); 
     });
