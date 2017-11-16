@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Enemy from './Enemy';
 import './World.css';
 
 class World extends Component {
@@ -45,6 +46,7 @@ class World extends Component {
   
   componentDidMount() {		    // Add Event Listener on compenent mount		    
     window.addEventListener("keydown", this.keyHandling);
+    console.log(this.props.enemies['0']);
   }		  	
   
   componentWillUnmount() {     // Remove event listener on compenent unmount		    
@@ -53,10 +55,11 @@ class World extends Component {
 
   render() {
 
-    let key=0
+    let key=0;
+    let enemyKey=-1;
     
     let myWorldMap = this.props.worldMap.map((row)=>{
-
+// eslint-disable-next-line
       return row.map((cell)=>{
         if (cell === 1) {
           key++;
@@ -65,14 +68,14 @@ class World extends Component {
           key++;
           return <div className="floor" key={key}></div>
         } else if (cell === 2) {
-          key++;
-          return <div className="player" key={key}></div>          
+          key++; 
+          return <div className="player" key={key}></div>                   
         } else if (cell === 3) {
           key++;
           return <div className="health" key={key}></div>          
-        } else if (cell === 4) {
-          key++;
-          return <div className="enemy" key={key}></div>          
+        } else if (typeof cell === 'string') {
+          enemyKey++;
+          return <Enemy key={enemyKey} enemy={this.props.enemies[enemyKey]}/>          
         } else if (cell === 5) {
           key++;
           return <div className="weapon" key={key}></div>          
