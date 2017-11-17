@@ -88,11 +88,15 @@ class AppContainer extends Component {
     for (var i = 0; i < 100; i++) {
       let randomRowIndex =  Math.floor(Math.random()*levelMapRows) ;  
       let randomPositionIndex =  Math.floor(Math.random()*levelMapColumns) + 1;
+      let enemies = this.state.enemies;
+      let newEnemies = [...enemies];
 
       if (levelMap[randomRowIndex][randomPositionIndex] === valueToReplace) {
           
           if (countDownOne > 0) {
           levelMap[randomRowIndex][randomPositionIndex] = targetValueOne;
+          newEnemies[countDownOne-1].position = [randomRowIndex,randomPositionIndex];
+          this.setState({enemies:newEnemies});
           countDownOne--;
           } else if (countDownTwo > 0) {
           levelMap[randomRowIndex][randomPositionIndex] = targetValueTwo;
@@ -100,20 +104,18 @@ class AppContainer extends Component {
           }
       }
     }
-       
     this.setState({worldMap:levelMap});
-    return levelMap;
   } 
 
   dealWithWhatsAhead(valueAhead) {
-    if (valueAhead === 3) {
+    if (valueAhead === 3) { 
       this.setState({health: this.state.health + 10});
     } else if (valueAhead === 5) {
       console.log('BOOO');
     } else if (valueAhead === 4) {
       let oldEnemies = this.state.enemies;
       let newEnemies = [...oldEnemies];
-      newEnemies[parseInt(valueAhead, 10)]["health"] -= 10;
+      
       this.setState({enemies:newEnemies});
     }
   }
