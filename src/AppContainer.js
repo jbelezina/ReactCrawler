@@ -8,17 +8,30 @@ class AppContainer extends Component {
     this.state = {
       level:1,
       health:100,
-      weapon:'axe',
+      weapons: [
+        {
+          weapon:'axe',
+          damage:10
+        },
+        {
+          weapon:'better axe',
+          damage:20
+        },
+        {
+          weapon:'best axe',
+          damage:30
+        }
+        ],
       worldMap: [
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,2,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,'0',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,1,0,0,0,3,0,0,0,3,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,0,0,0,1,0,0,0,3,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -27,11 +40,10 @@ class AppContainer extends Component {
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,1,0,0,0,'1',0,0,0,0,0,'2',0,0,0,0,'3',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-
+        [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
       ],
       playerRowIndex: 1,
       playerColumnIndex: 1,
@@ -57,14 +69,48 @@ class AppContainer extends Component {
 
     this.movePlayer = this.movePlayer.bind(this);
     this.dealWithWhatsAhead = this.dealWithWhatsAhead.bind(this);
+    this.distrubuteRandomlyOnMap = this.distrubuteRandomlyOnMap.bind(this);
   }
+
+  componentWillMount(){
+    let oldMap = this.state.worldMap;
+    let newMap = [...oldMap];
+    this.distrubuteRandomlyOnMap(newMap, 4, this.state.enemies.length, 5, this.state.weapons.length, 0);    
+  } 
+
+  distrubuteRandomlyOnMap(levelMap, targetValueOne, targetAmountOne, targetValueTwo, targetAmountTwo, valueToReplace) {
+    console.log('REPLACING ' + valueToReplace + ' WITH ' + targetValueOne + 'AND' + targetValueTwo);
+    let countDownOne = targetAmountOne;
+    let countDownTwo = targetAmountTwo;
+    var levelMapRows = levelMap.length; 
+    var levelMapColumns = levelMap[0].length;
+
+    for (var i = 0; i < 100; i++) {
+      let randomRowIndex =  Math.floor(Math.random()*levelMapRows) ;  
+      let randomPositionIndex =  Math.floor(Math.random()*levelMapColumns) + 1;
+
+      if (levelMap[randomRowIndex][randomPositionIndex] === valueToReplace) {
+          
+          if (countDownOne > 0) {
+          levelMap[randomRowIndex][randomPositionIndex] = targetValueOne;
+          countDownOne--;
+          } else if (countDownTwo > 0) {
+          levelMap[randomRowIndex][randomPositionIndex] = targetValueTwo;
+          countDownTwo--;  
+          }
+      }
+    }
+       
+    this.setState({worldMap:levelMap});
+    return levelMap;
+  } 
 
   dealWithWhatsAhead(valueAhead) {
     if (valueAhead === 3) {
       this.setState({health: this.state.health + 10});
     } else if (valueAhead === 5) {
-      this.setState({weapon:'bigger axe'});
-    } else if (typeof valueAhead === 'string') {
+      console.log('BOOO');
+    } else if (valueAhead === 4) {
       let oldEnemies = this.state.enemies;
       let newEnemies = [...oldEnemies];
       newEnemies[parseInt(valueAhead, 10)]["health"] -= 10;
@@ -125,7 +171,7 @@ class AppContainer extends Component {
               appstate={this.state}
               level={this.state.level}
               health={this.state.health}
-              weapon={this.state.weapon}
+              weapons={this.state.weapons}
               worldMap={this.state.worldMap}
               movePlayer={this.movePlayer}
               enemies={this.state.enemies}

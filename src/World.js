@@ -73,7 +73,7 @@ class World extends Component {
         } else if (cell === 3) {
           key++;
           return <div className="health" key={key}></div>          
-        } else if (typeof cell === 'string') {
+        } else if (cell === 4) {
           enemyKey++;
           return <Enemy key={enemyKey} enemy={this.props.enemies[enemyKey]}/>          
         } else if (cell === 5) {
@@ -88,7 +88,7 @@ class World extends Component {
         World
         <p>Health: {this.props.health}</p>
         <p>Level: {this.props.level}</p>
-        <p>Weapon: {this.props.weapon}</p>
+        <p>Weapon: </p>
         <div className="worldSize">
           {myWorldMap}
         </div>
