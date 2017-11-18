@@ -49,7 +49,7 @@ class AppContainer extends Component {
       playerColumnIndex: 1,
       enemies: [
         {
-          health: 100,
+          health: 0,
           attack: 100,         
         },
         {
@@ -68,7 +68,6 @@ class AppContainer extends Component {
     }
 
     this.movePlayer = this.movePlayer.bind(this);
-    this.dealWithWhatsAhead = this.dealWithWhatsAhead.bind(this);
     this.distrubuteRandomlyOnMap = this.distrubuteRandomlyOnMap.bind(this);
   }
 
@@ -111,68 +110,66 @@ class AppContainer extends Component {
     }
     this.setState({worldMap:levelMap});
   } 
-
-  dealWithWhatsAhead(valueAhead) {
-    if (valueAhead === 3) { 
-      this.setState({health: this.state.health + 10});
-    } else if (valueAhead === 5) {
-      console.log('BOOO');
-    } else if (valueAhead === 4) {
-      let oldEnemies = this.state.enemies;
-      let newEnemies = [...oldEnemies];
-      
-      this.setState({enemies:newEnemies});
-    }
-  }
   
   movePlayer(direction){
 
     var worldMap = this.state.worldMap;
     var playerRowIndex = this.state.playerRowIndex;
     var playerColumnIndex = this.state.playerColumnIndex;
+    var newPlayerRowIndex;
+    var newPlayerColumnIndex;
     var newWorldMap = [ ...worldMap ];
+    let whatsAhead;
 
-    if (direction === "right" && worldMap[playerRowIndex][playerColumnIndex + 1] !== 1) { // if right and no wall ahead
-      let newPlayerColumnIndex = playerColumnIndex +1;
-      this.dealWithWhatsAhead(worldMap[playerRowIndex][newPlayerColumnIndex]);// react to what's ahead 
+    if (direction === "right") {
+      newPlayerRowIndex = playerRowIndex;
+      newPlayerColumnIndex = playerColumnIndex + 1;
+    } else if (direction === "left") {
+      newPlayerRowIndex = playerRowIndex;
+      newPlayerColumnIndex = playerColumnIndex + -1;
+    } else if (direction === "up") {
+      newPlayerRowIndex = playerRowIndex - 1;
+      newPlayerColumnIndex = playerColumnIndex;
+    } else if (direction === "down") {
+      newPlayerRowIndex = playerRowIndex + 1;
+      newPlayerColumnIndex = playerColumnIndex;
+    }
+
+    whatsAhead = worldMap[newPlayerRowIndex][newPlayerColumnIndex];
+    console.log('whats ahead ' + whatsAhead);
+    if (whatsAhead === 1) {
+      // don't move
+    } else if (whatsAhead === 4) {
+      let enemies = this.state.enemies
+      for (var i = 0; i < enemies.length; i++) {
+        if(JSON.stringify(enemies[i]["position"])==JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[i]["health"]<1){
+          console.log('the enemy ahead has index has no health' )
+          newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
+          newWorldMap[newPlayerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player    
+        } else if (JSON.stringify(enemies[i]["position"])==JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[i]["health"]>0){
+          console.log('deal damage');
+        }
+      }  
+    }
+    
+    else {
       newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
-      newWorldMap[playerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player
+      newWorldMap[newPlayerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player
       this.setState({ 
         worldMap: newWorldMap, // update the map 
-        playerColumnIndex: newPlayerColumnIndex // update horizontal player position
-      })
-      
-    } else if (direction === "left" && worldMap[playerRowIndex][playerColumnIndex - 1] !== 1) { // if left and no wall ahead
-      let newPlayerColumnIndex = playerColumnIndex -1;
-      this.dealWithWhatsAhead(worldMap[playerRowIndex][newPlayerColumnIndex]);  // react to what's ahead
-      newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
-      newWorldMap[playerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player
-      this.setState({
-        worldMap: newWorldMap,
-        playerColumnIndex: newPlayerColumnIndex
-      })
-    } else if (direction === "up" && worldMap[playerRowIndex -1][playerColumnIndex] !== 1) {
-      let newPlayerRowIndex = playerRowIndex -1;
-      this.dealWithWhatsAhead(worldMap[newPlayerRowIndex][playerColumnIndex])  // react to what's ahead
-      newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
-      newWorldMap[newPlayerRowIndex][playerColumnIndex] = 2; // set target cell to player
-      this.setState({
-        worldMap: newWorldMap,
-        playerRowIndex: newPlayerRowIndex
-      }) 
-    } else if (direction === "down" && worldMap[playerRowIndex +1][playerColumnIndex] !== 1) {
-      let newPlayerRowIndex = playerRowIndex +1;
-      this.dealWithWhatsAhead(worldMap[newPlayerRowIndex][playerColumnIndex]) // react to what's ahead
-      newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
-      newWorldMap[newPlayerRowIndex][playerColumnIndex] = 2; // set target cell to player
-      this.setState({
-        worldMap: newWorldMap,
+        playerColumnIndex: newPlayerColumnIndex, // update horizontal player position
         playerRowIndex: newPlayerRowIndex
       })
     }
+
+    if (whatsAhead === 3) { 
+      this.setState({health: this.state.health + 10});
+    } else if (whatsAhead === 5) {
+      console.log('BOOO');
+    }
   }
 
-  render() {
+render() {
     return (
         <World  
               appstate={this.state}
