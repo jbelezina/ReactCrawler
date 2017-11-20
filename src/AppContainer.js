@@ -8,18 +8,19 @@ class AppContainer extends Component {
     this.state = {
       level:1,
       health:100,
+      xp: 2,
       weapons: [
         {
           weapon:'axe',
-          damage:10
-        },
-        {
-          weapon:'better axe',
           damage:20
         },
         {
+          weapon:'better axe',
+          damage: 40
+        },
+        {
           weapon:'best axe',
-          damage:30
+          damage:60
         }
         ],
       worldMap: [
@@ -49,7 +50,7 @@ class AppContainer extends Component {
       playerColumnIndex: 1,
       enemies: [
         {
-          health: 0,
+          health: 100,
           attack: 100,         
         },
         {
@@ -137,17 +138,18 @@ class AppContainer extends Component {
 
     whatsAhead = worldMap[newPlayerRowIndex][newPlayerColumnIndex];
     console.log('whats ahead ' + whatsAhead);
-    if (whatsAhead === 1) {
+    if (whatsAhead === 1) { // if floor
       // don't move
-    } else if (whatsAhead === 4) {
+    } else if (whatsAhead === 4) { // if enemy
       let enemies = this.state.enemies
       for (var i = 0; i < enemies.length; i++) {
         if(JSON.stringify(enemies[i]["position"])==JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[i]["health"]<1){
-          console.log('the enemy ahead has index has no health' )
+          console.log('the enemy ahead has no health' )
           newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
           newWorldMap[newPlayerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player    
         } else if (JSON.stringify(enemies[i]["position"])==JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[i]["health"]>0){
-          console.log('deal damage');
+          enemies[i]["health"] -= (Math.round(Math.random()*(this.state.xp * this.state.weapons[0]["damage"]))+1); // calculate damage
+          this.setState({enemies:enemies}); 
         }
       }  
     }
