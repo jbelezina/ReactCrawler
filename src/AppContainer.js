@@ -9,17 +9,19 @@ class AppContainer extends Component {
       level:1,
       health:100,
       xp: 2,
+      weapon: 'wooden club',
+      damage: 10,
       weapons: [
         {
-          weapon:'axe',
+          weapon:'machete',
           damage:20
         },
         {
-          weapon:'better axe',
+          weapon:'sword',
           damage: 40
         },
         {
-          weapon:'best axe',
+          weapon:'battle axe',
           damage:60
         }
         ],
@@ -91,7 +93,9 @@ class AppContainer extends Component {
       let randomPositionIndex =  Math.floor(Math.random()*levelMapColumns) + 1;
       let enemies = this.state.enemies;
       let newEnemies = [...enemies];
-      
+      let weapons = this.state.weapons;
+      let newWeapons = [...weapons];
+      newWeapons.reverse();
 
       if (levelMap[randomRowIndex][randomPositionIndex] === valueToReplace) {
           
@@ -102,6 +106,8 @@ class AppContainer extends Component {
           countDownOne--;
           } else if (countDownTwo > 0) {
           levelMap[randomRowIndex][randomPositionIndex] = targetValueTwo;
+          newWeapons[countDownTwo-1].position = [randomRowIndex, randomPositionIndex];
+          this.setState({weapons:newWeapons});
           countDownTwo--;  
           } else if (noOfHealthItems > 0 ) {
           levelMap[randomRowIndex][randomPositionIndex] = 3;
@@ -142,15 +148,15 @@ class AppContainer extends Component {
       // don't move
     } else if (whatsAhead === 4) { // if enemy
       let enemies = this.state.enemies
-      for (var i = 0; i < enemies.length; i++) {
-        if(JSON.stringify(enemies[i]["position"])===JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[i]["health"]<=0){
+      for (var j = 0; j < enemies.length; j++) {
+        if(JSON.stringify(enemies[j]["position"])===JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[j]["health"]<=0){
           console.log('the enemy ahead has no health' )
           newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
           newWorldMap[newPlayerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player    
-        } else if (JSON.stringify(enemies[i]["position"])===JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[i]["health"]>0){
-          enemies[i]["health"] -= (Math.round(Math.random()*(this.state.xp * this.state.weapons[0]["damage"]))+1); // calculate damage
+        } else if (JSON.stringify(enemies[j]["position"])===JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[j]["health"]>0){
+          enemies[j]["health"] -= (Math.round(Math.random()*(this.state.xp * this.state.weapons[0]["damage"]))+1); // calculate damage
           let playerHealth = this.state.health;
-          let enemyDamage = Math.round((Math.random() * enemies[i]["attack"])+1);
+          let enemyDamage = Math.round((Math.random() * enemies[j]["attack"])+1);
           let newPlayerHealth = playerHealth - enemyDamage;
           this.setState({enemies:enemies});
           this.setState({health:newPlayerHealth}); 
@@ -171,7 +177,16 @@ class AppContainer extends Component {
     if (whatsAhead === 3) { 
       this.setState({health: this.state.health + 40});
     } else if (whatsAhead === 5) {
-      console.log('BOOO');
+      let weapons = this.state.weapons;
+      for (var i = 0; i < weapons.length; i++) {
+        if (JSON.stringify(weapons[i]["position"])===JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex])) {
+        let newWeapon = weapons[i]["weapon"]
+          this.setState({weapon:newWeapon});
+        let oldDamage = this.state.damage;
+        let newDamage = oldDamage + weapons[i]["damage"];  
+        this.setState({damage: newDamage});
+      }
+    }
     }
   }
 
@@ -185,6 +200,8 @@ render() {
               worldMap={this.state.worldMap}
               movePlayer={this.movePlayer}
               enemies={this.state.enemies}
+              weapon={this.state.weapon}
+              damage={this.state.damage}
         />     
     );
   }
