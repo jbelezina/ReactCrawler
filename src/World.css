@@ -1,46 +1,51 @@
 .wall {
-  height: 10px;
-  width: 10px;
+  height: 50px;
+  width: 50px;
   float:left;
-  background-color: gray;
 }
 
 .floor {
-  height: 10px;
-  width: 10px;
+  height: 50px;
+  width: 50px;
   float:left;
   background-color: white;
 }
 
 .player {
-  height: 10px;
-  width: 10px;
+  height: 50px;
+  width: 50px;
   float:left;
-  background-color: greenyellow;
+  
 }
 
 .health {
-  height: 10px;
-  width: 10px;
+  height: 50px;
+  width: 50px;
   float:left;
   background-color: green;
 }
 
 .enemy {
-  height: 10px;
-  width: 10px;
+  height: 50px;
+  width: 50px;
   float:left;
-  background-color: red;
+}
+
+.darkness {
+  height: 50px;
+  width: 50px;
+  float:left;
+  background-color: black;
 }
 
 .weapon {
-  height: 10px;
-  width: 10px;
+  height: 50px;
+  width: 50px;
   float:left;
   background-color: purple;
 }
 
 .worldSize {
-  width: 460px;
+  width: 2300px;
 }
 

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import './Enemy.css';
+import './World.css';
+import monster from './monster1.gif';
 
 class Enemy extends Component {
 
-  log(){
-    console.log(this.props);
-  }
 
   render() {    
-    return <div onClick={this.log.bind(this)} className="enemy"/>          
+    return <div className="enemy">
+    <img src={monster} alt={"monster"} height="50" width="50"/>
+    </div>          
   }
 }
 export default Enemy;

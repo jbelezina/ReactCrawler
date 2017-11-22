@@ -72,6 +72,7 @@ class AppContainer extends Component {
 
     this.movePlayer = this.movePlayer.bind(this);
     this.distrubuteRandomlyOnMap = this.distrubuteRandomlyOnMap.bind(this);
+  /*  this.coverMap = this.coverMap.bind(this); */
   }
 
   componentWillMount(){
@@ -79,7 +80,30 @@ class AppContainer extends Component {
     let newMap = [...oldMap];
     this.distrubuteRandomlyOnMap(newMap, 4, this.state.enemies.length, 5, this.state.weapons.length, 0);    
   } 
+/*
+  coverMap(){
+    let oldMap = this.state.worldMap;
+    let newMap = [...oldMap];
+    let playerRow = this.state.playerRowIndex;
+    let playerColumn = this.state.playerColumnIndex;
 
+    newMap.forEach(function(item,i){
+      for (var x = 0; x < item.length; x++) {
+        
+        console.log('item ' + item + )        
+        if ( 
+              !((i > (playerRow - 2)) && (i < (playerRow + 2))) && 
+              !((x > (playerColumn - 3)) && (i < (playerColumn + 3)) ) 
+            ) {
+  
+              item[x] = 9;
+        }
+      }
+    })
+    console.log(newMap);
+    this.setState({worldMap: newMap})
+  }
+*/
   distrubuteRandomlyOnMap(levelMap, targetValueOne, targetAmountOne, targetValueTwo, targetAmountTwo, valueToReplace) {
     console.log('REPLACING ' + valueToReplace + ' WITH ' + targetValueOne + 'AND' + targetValueTwo);
     let countDownOne = targetAmountOne;
@@ -116,7 +140,7 @@ class AppContainer extends Component {
       }
     }
     this.setState({worldMap:levelMap});
-  } 
+  }
   
   movePlayer(direction){
 
@@ -202,6 +226,8 @@ render() {
               enemies={this.state.enemies}
               weapon={this.state.weapon}
               damage={this.state.damage}
+              coverMap={this.coverMap}
+              coveredMap={this.state.coveredMap}
         />     
     );
   }

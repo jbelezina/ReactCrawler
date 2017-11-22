@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Enemy from './Enemy';
 import './World.css';
+import hero from './hero1.gif';
+import wall from './brickwall.jpg';
+
 
 class World extends Component {
 
   constructor(){
     super();
-
     this.keyHandling = this.keyHandling.bind(this);
   }
 
@@ -46,7 +48,7 @@ class World extends Component {
   
   componentDidMount() {		    // Add Event Listener on compenent mount		    
     window.addEventListener("keydown", this.keyHandling);
-    console.log(this.props.enemies['0']);
+    console.log('World component did mount');
   }		  	
   
   componentWillUnmount() {     // Remove event listener on compenent unmount		    
@@ -63,13 +65,13 @@ class World extends Component {
       return row.map((cell)=>{
         if (cell === 1) {
           key++;
-          return <div className="wall" key={key}></div>
+          return <div className="wall" key={key}><img src={wall} alt={"wall"} height="50" width="50"/></div>
         } else if (cell === 0) {
           key++;
           return <div className="floor" key={key}></div>
         } else if (cell === 2) {
           key++; 
-          return <div className="player" key={key}></div>                   
+          return <div className="player" key={key}><img src={hero} alt={"hero"} height="50" width="50"/></div>                   
         } else if (cell === 3) {
           key++;
           return <div className="health" key={key}></div>          
@@ -79,6 +81,9 @@ class World extends Component {
         } else if (cell === 5) {
           key++;
           return <div className="weapon" key={key}></div>          
+        } else if (cell === 9) {
+          key++;
+          return <div className="darkness" key={key}></div>          
         }
       }); 
     });
