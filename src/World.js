@@ -59,8 +59,7 @@ class World extends Component {
 
     let key=0;
     let enemyKey=-1;
-    
-    let myWorldMap = this.props.worldMap.map((row)=>{
+    let myWorldMap = this.props.coveredMap.map((row)=>{
 // eslint-disable-next-line
       return row.map((cell)=>{
         if (cell === 1) {

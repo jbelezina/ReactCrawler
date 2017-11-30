@@ -72,38 +72,60 @@ class AppContainer extends Component {
 
     this.movePlayer = this.movePlayer.bind(this);
     this.distrubuteRandomlyOnMap = this.distrubuteRandomlyOnMap.bind(this);
-  /*  this.coverMap = this.coverMap.bind(this); */
+    this.coverMap = this.coverMap.bind(this); 
   }
 
   componentWillMount(){
     let oldMap = this.state.worldMap;
     let newMap = [...oldMap];
     this.distrubuteRandomlyOnMap(newMap, 4, this.state.enemies.length, 5, this.state.weapons.length, 0);    
+    this.coverMap();
   } 
-/*
-  coverMap(){
-    let oldMap = this.state.worldMap;
-    let newMap = [...oldMap];
-    let playerRow = this.state.playerRowIndex;
-    let playerColumn = this.state.playerColumnIndex;
 
-    newMap.forEach(function(item,i){
-      for (var x = 0; x < item.length; x++) {
-        
-        console.log('item ' + item + )        
-        if ( 
-              !((i > (playerRow - 2)) && (i < (playerRow + 2))) && 
-              !((x > (playerColumn - 3)) && (i < (playerColumn + 3)) ) 
-            ) {
-  
-              item[x] = 9;
-        }
+  coverMap(){
+
+    let shouldNotBeCovered = this.state.worldMap;
+    let newMap = [].concat(shouldNotBeCovered);
+    let playerColumn;
+    let playerRow;
+
+    newMap.map((row,rowIndex)=>{
+      if (row.indexOf(2) != -1) {
+        row.map((item,itemIndex)=>{
+          if (item === 2) {
+            playerRow = rowIndex; 
+            playerColumn = itemIndex;
+          }
+        }) 
       }
-    })
-    console.log(newMap);
-    this.setState({worldMap: newMap})
+    });
+
+    let anotherNewMap = [].concat(shouldNotBeCovered);
+
+    let result = anotherNewMap.map((row,rowIndex)=>{
+        let newRow = []
+        row.forEach((item, itemIndex)=>{
+          if((rowIndex === playerRow) && ((itemIndex > playerColumn +3) || (itemIndex < playerColumn -3))) {
+            newRow.push(9); 
+            } else if((rowIndex === playerRow + 1 || rowIndex === playerRow - 1 ) && ((itemIndex > playerColumn +2) || (itemIndex < playerColumn -2))) {
+              newRow.push(9);
+            } else if((rowIndex === playerRow + 2 || rowIndex === playerRow - 2 ) && ((itemIndex > playerColumn +1) || (itemIndex < playerColumn -1))) {
+              newRow.push(9);
+            } else if((rowIndex === playerRow + 3 || rowIndex === playerRow - 3 ) && ((itemIndex > playerColumn) || (itemIndex < playerColumn))) {
+              newRow.push(9);
+            } else if((rowIndex >= playerRow + 4 || rowIndex <= playerRow - 4 )){
+              newRow.push(9);
+            } else {
+              newRow.push(shouldNotBeCovered[rowIndex][itemIndex]);              
+            }
+          });
+        return newRow;
+    });
+    
+    this.setState({coveredMap:result});
   }
-*/
+  
+
   distrubuteRandomlyOnMap(levelMap, targetValueOne, targetAmountOne, targetValueTwo, targetAmountTwo, valueToReplace) {
     console.log('REPLACING ' + valueToReplace + ' WITH ' + targetValueOne + 'AND' + targetValueTwo);
     let countDownOne = targetAmountOne;
@@ -145,6 +167,7 @@ class AppContainer extends Component {
   movePlayer(direction){
 
     var worldMap = this.state.worldMap;
+    console.log('shouldn be covered at all' + worldMap);
     var playerRowIndex = this.state.playerRowIndex;
     var playerColumnIndex = this.state.playerColumnIndex;
     var newPlayerRowIndex;
@@ -168,15 +191,21 @@ class AppContainer extends Component {
 
     whatsAhead = worldMap[newPlayerRowIndex][newPlayerColumnIndex];
     console.log('whats ahead ' + whatsAhead);
-    if (whatsAhead === 1) { // if floor
+    if (whatsAhead === 1) { // if wall
       // don't move
     } else if (whatsAhead === 4) { // if enemy
       let enemies = this.state.enemies
       for (var j = 0; j < enemies.length; j++) {
-        if(JSON.stringify(enemies[j]["position"])===JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[j]["health"]<=0){
-          console.log('the enemy ahead has no health' )
+        if(JSON.stringify(enemies[j]["position"])===JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[j]["health"]<0){
+          console.log('the enemy ahead has no health so I can tread on him' )
           newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
-          newWorldMap[newPlayerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player    
+          newWorldMap[newPlayerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player
+          this.setState({ 
+            worldMap: newWorldMap, // update the map 
+            playerColumnIndex: newPlayerColumnIndex, // update horizontal player position
+            playerRowIndex: newPlayerRowIndex
+          })
+          this.coverMap();    
         } else if (JSON.stringify(enemies[j]["position"])===JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[j]["health"]>0){
           enemies[j]["health"] -= (Math.round(Math.random()*(this.state.xp * this.state.weapons[0]["damage"]))+1); // calculate damage
           let playerHealth = this.state.health;
@@ -196,6 +225,7 @@ class AppContainer extends Component {
         playerColumnIndex: newPlayerColumnIndex, // update horizontal player position
         playerRowIndex: newPlayerRowIndex
       })
+      this.coverMap();
     }
 
     if (whatsAhead === 3) { 
@@ -212,6 +242,8 @@ class AppContainer extends Component {
       }
     }
     }
+
+    
   }
 
 render() {
@@ -221,13 +253,11 @@ render() {
               level={this.state.level}
               health={this.state.health}
               weapons={this.state.weapons}
-              worldMap={this.state.worldMap}
+              coveredMap={this.state.coveredMap}
               movePlayer={this.movePlayer}
               enemies={this.state.enemies}
               weapon={this.state.weapon}
               damage={this.state.damage}
-              coverMap={this.coverMap}
-              coveredMap={this.state.coveredMap}
         />     
     );
   }
