@@ -1,5 +1,25 @@
 .statsBar {
-  position: absolute;
-  height: 
-  font-family: sans-serif;
+  height: 40px;
+  position: fixed;
+  width: 100%;
+  top:0;
+  background-color: green;
+}
+
+ul {
+  margin-top: 10px;
+}
+
+li {
+  display: inline;
+  color: white;
+}
+
+.divider{
+  color: gray;
+}
+
+button {
+  float: right;
+  margin-right: 10px;
 }

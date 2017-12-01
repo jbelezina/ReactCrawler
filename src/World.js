@@ -88,12 +88,7 @@ class World extends Component {
     });
 
     return (
-      <div>
-        World
-        <p>Health: {this.props.health}</p>
-        <p>Level: {this.props.level}</p>
-        <p>Weapon: {this.props.weapon}</p>
-        <p>Damage: {this.props.damage}</p>
+      <div id="world">
         <div className="worldSize">
           {myWorldMap}
         </div>

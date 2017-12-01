@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import World from './World';
+import './World.css'
+import StatsBar from './StatsBar';
 
 
 class AppContainer extends Component {
@@ -25,6 +27,7 @@ class AppContainer extends Component {
           damage:60
         }
         ],
+      isMapCovered: true,
       worldMap: [
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,2,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -72,17 +75,33 @@ class AppContainer extends Component {
 
     this.movePlayer = this.movePlayer.bind(this);
     this.distrubuteRandomlyOnMap = this.distrubuteRandomlyOnMap.bind(this);
-    this.coverMap = this.coverMap.bind(this); 
+    this.coverMap = this.coverMap.bind(this);
+    this.toggleDarkness = this.toggleDarkness.bind(this); 
+  }
+
+  toggleDarkness(){
+    let isMapCovered = this.state.isMapCovered; 
+    this.setState({isMapCovered: !this.state.isMapCovered});
+    if (isMapCovered) {
+      
+      this.setState({coveredMap: this.state.worldMap});
+    } else {
+      console.log('map is not covered')
+      this.coverMap('ToggleDarkness');
+      console.log('now it is')
+    }
   }
 
   componentWillMount(){
     let oldMap = this.state.worldMap;
     let newMap = [...oldMap];
     this.distrubuteRandomlyOnMap(newMap, 4, this.state.enemies.length, 5, this.state.weapons.length, 0);    
-    this.coverMap();
+    if(this.state.isMapCovered){
+      this.coverMap();
+    }
   } 
 
-  coverMap(){
+  coverMap(source){
 
     let shouldNotBeCovered = this.state.worldMap;
     let newMap = [].concat(shouldNotBeCovered);
@@ -90,14 +109,16 @@ class AppContainer extends Component {
     let playerRow;
 
     newMap.map((row,rowIndex)=>{
-      if (row.indexOf(2) != -1) {
+      if (row.indexOf(2) !== -1) {
         row.map((item,itemIndex)=>{
           if (item === 2) {
             playerRow = rowIndex; 
             playerColumn = itemIndex;
           }
+          return item;
         }) 
       }
+      return row;
     });
 
     let anotherNewMap = [].concat(shouldNotBeCovered);
@@ -121,8 +142,9 @@ class AppContainer extends Component {
           });
         return newRow;
     });
-    
+    if(this.state.isMapCovered || source === 'ToggleDarkness'){
     this.setState({coveredMap:result});
+    }
   }
   
 
@@ -248,17 +270,22 @@ class AppContainer extends Component {
 
 render() {
     return (
-        <World  
-              appstate={this.state}
+        <div>
+        <StatsBar 
               level={this.state.level}
               health={this.state.health}
               weapons={this.state.weapons}
+              damage={this.state.damage}
+              toggleDarkness={this.toggleDarkness}
+        />
+        <World className="world" 
+              appstate={this.state}
               coveredMap={this.state.coveredMap}
               movePlayer={this.movePlayer}
               enemies={this.state.enemies}
               weapon={this.state.weapon}
-              damage={this.state.damage}
-        />     
+        />
+        </div>     
     );
   }
 }
