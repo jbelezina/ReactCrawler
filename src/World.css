@@ -53,3 +53,10 @@
   position: fixed;
   margin-top: 40px;
 }
+
+.gameOver {
+  position: relative;
+  background-color: white;
+  margin-left: 10px; 
+  bottom: 50%;
+}

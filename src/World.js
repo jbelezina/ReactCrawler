@@ -87,15 +87,20 @@ class World extends Component {
       }); 
     });
 
+    let gameOver;
+    if(this.props.gameOver){
+      gameOver =  (<div className="gameOver">
+      <h1>SORRY, YOU DIED</h1>
+      </div>)
+    }
+      
+
     return (
       <div id="world">
+        {gameOver}
         <div className="worldSize">
           {myWorldMap}
         </div>
-        <button onClick={this.moveRight.bind(this)}>RIGHT</button>
-        <button onClick={this.moveLeft.bind(this)}>LEFT</button>
-        <button onClick={this.moveUp.bind(this)}>UP</button>
-        <button onClick={this.moveDown.bind(this)}>DOWN</button>
         <button onClick={this.logState.bind(this)}>log state</button>
       </div>
     );
