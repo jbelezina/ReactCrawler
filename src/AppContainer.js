@@ -353,6 +353,7 @@ render() {
               health={this.state.health}
               weapons={this.state.weapons}
               damage={this.state.damage}
+              weapon={this.state.weapon}
               toggleDarkness={this.toggleDarkness}
         />
         <World className="world" 
@@ -361,7 +362,6 @@ render() {
               coveredMap={this.state.coveredMap}
               movePlayer={this.movePlayer}
               enemies={this.state.enemies}
-              weapon={this.state.weapon}
         />
         </div>     
     );
