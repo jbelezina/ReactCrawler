@@ -83,6 +83,10 @@ class World extends Component {
         } else if (cell === 9) {
           key++;
           return <div className="darkness" key={key}></div>          
+        } else if (cell === 10) {
+          key++;
+          return <div className="boss" key={key}></div>          
+          return <div className="boss" key={key}></div>          
         }
       }); 
     });
@@ -94,10 +98,17 @@ class World extends Component {
       </div>)
     }
       
+    let bonus;
+    if(!this.props.bonus){
+      bonus =  (<div className="gameOver">
+      <h1>YOU KILLED ALL THE MONSTERS!!! HEALTH BONUS!!! GOOD LUCK WITH THE BOSS...</h1>
+      </div>)
+    }
 
     return (
       <div id="world">
         {gameOver}
+        {bonus}
         <div className="worldSize">
           {myWorldMap}
         </div>

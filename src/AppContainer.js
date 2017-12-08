@@ -8,12 +8,14 @@ class AppContainer extends Component {
   constructor(){
     super();
     this.state = {
+      bonusNotGiven:true,
       level:1,
-      health:20,
-      xp: 2,
+      health:100,
+      xp:1,
       weapon: 'wooden club',
       damage: 10,
       gameOver: false,
+      youWon: false,
       weapons: [
         {
           weapon:'machete',
@@ -48,17 +50,18 @@ class AppContainer extends Component {
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,1],
         [1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
-        [1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
-        [1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
+        [1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,10,10,1],
+        [1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,10,10,1],
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
       ],
       playerRowIndex: 1,
       playerColumnIndex: 1,
+      boss: {
+        health: 300,
+        attack: 50,
+        level: 3,
+      },
       enemies: [
-        {
-          health: 100,
-          attack: 10,         
-        },
         {
           health: 100,
           attack: 20,         
@@ -66,6 +69,22 @@ class AppContainer extends Component {
         {
           health: 100,
           attack: 30,         
+        },
+        {
+          health: 100,
+          attack: 40,         
+        },
+        {
+          health: 100,
+          attack: 40,         
+        },
+        {
+          health: 100,
+          attack: 50,         
+        },
+        {
+          health: 100,
+          attack: 40,         
         },
         {
           health: 100,
@@ -79,13 +98,45 @@ class AppContainer extends Component {
     this.coverMap = this.coverMap.bind(this);
     this.toggleDarkness = this.toggleDarkness.bind(this); 
     this.backToDefaults = this.backToDefaults.bind(this);
+    this.updateLevel = this.updateLevel.bind(this);
+    this.healthBonus = this.healthBonus.bind(this);
   }
 
+  updateLevel(){
+    if (this.state.xp >= 3 && this.state.xp < 5) {
+      this.setState({level: 2})
+    } else if (this.state.xp >= 3 && this.state.xp < 5){
+      this.setState({level: 3}) 
+    } else if (this.state.xp > 5) {
+      this.setState({level:4})
+    }
+  }
+
+  healthBonus(){
+    let world = this.state.worldMap;
+    let eligible = true;
+      world.forEach((row)=>{
+        row.forEach((item)=>{
+          if(item === 4) {
+            eligible = false;
+          }
+        });
+      });
+    
+    if(eligible && this.state.bonusNotGiven){
+      console.log('health bonus');
+      if(this.state.bonusNotGiven){
+        this.setState({health:this.state.health+200});
+        this.setState({bonusNotGiven:false});
+      }
+    }
+  }
+  
   backToDefaults(){
     this.setState({
       level:1,
-      health:20,
-      xp: 2,
+      health:100,
+      xp:1,
       weapon: 'wooden club',
       damage: 10,
       isMapCovered: true,
@@ -108,8 +159,8 @@ class AppContainer extends Component {
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,1],
         [1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
         [1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
-        [1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
-        [1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
+        [1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,10,10,1],
+        [1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,10,10,1],
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
       ],
       playerRowIndex: 1,
@@ -141,8 +192,6 @@ class AppContainer extends Component {
       this.coverMap();
     }
   }
-
-
 
   toggleDarkness(){
     let isMapCovered = this.state.isMapCovered; 
@@ -237,7 +286,7 @@ class AppContainer extends Component {
           newEnemies[countDownOne-1].position = [randomRowIndex,randomPositionIndex];
           this.setState({enemies:newEnemies});
           countDownOne--;
-          } else if (countDownTwo > 0) {
+          } else if (targetValueTwo && countDownTwo > 0) {
           levelMap[randomRowIndex][randomPositionIndex] = targetValueTwo;
           newWeapons[countDownTwo-1].position = [randomRowIndex, randomPositionIndex];
           this.setState({weapons:newWeapons});
@@ -281,20 +330,32 @@ class AppContainer extends Component {
     if (whatsAhead === 1) { // if wall
       // don't move
     } else if (whatsAhead === 4) { // if enemy
-      let enemies = this.state.enemies
+      let enemies = this.state.enemies;
       for (var j = 0; j < enemies.length; j++) {
-        if(JSON.stringify(enemies[j]["position"])===JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[j]["health"]<0){
+        if(JSON.stringify(enemies[j]["position"])===JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) 
+        && enemies[j]["health"]<0){
           console.log('the enemy ahead has no health so I can tread on him' )
           newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
           newWorldMap[newPlayerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player
           this.setState({ 
             worldMap: newWorldMap, // update the map 
+            xp: this.state.xp + 1,
             playerColumnIndex: newPlayerColumnIndex, // update horizontal player position
             playerRowIndex: newPlayerRowIndex
           })
           this.coverMap();    
         } else if (JSON.stringify(enemies[j]["position"])===JSON.stringify([newPlayerRowIndex,newPlayerColumnIndex]) && enemies[j]["health"]>0){
-          enemies[j]["health"] -= (Math.round(Math.random()*(this.state.xp * this.state.weapons[0]["damage"]))+1); // calculate damage
+          
+          let currentWeapon = this.state.weapon;
+          console.log(currentWeapon);
+          let weaponsArr = this.state.weapons;
+          for (let x = 0; x < weaponsArr.length; x++){
+            if (weaponsArr[x]["weapon"] = currentWeapon){
+              console.log('current weapon damage: ' + weaponsArr[x]["damage"])
+            }
+          }
+
+          enemies[j]["health"] -= (Math.round((this.state.xp * (Math.random() * (this.state.weapons[0]["damage"]+1))))); // calculate damage
           let playerHealth = this.state.health;
           let enemyDamage = Math.round((Math.random() * enemies[j]["attack"])+1);
           let newPlayerHealth = playerHealth - enemyDamage;
@@ -306,13 +367,40 @@ class AppContainer extends Component {
             setTimeout(
               function() {
                 this.backToDefaults();                
-              }.bind(this), 3000);
+              }.bind(this), 3000); 
           }
-                  }
-      }  
-    }
-    
-    else {
+        }
+      }
+      this.updateLevel(); 
+    } else if (whatsAhead === 10) { //if boss
+
+      let boss = this.state.boss;
+      let playerHealth = this.state.health;
+
+                    if (boss.health > 0) {
+                      // deal damage to player
+                      let bossDamage = Math.round(((Math.random() * boss.attack * boss.level)+10)/4);
+                      let newPlayerHealth = playerHealth - bossDamage;
+
+                            if (newPlayerHealth > 0 ){
+                              this.setState({health:newPlayerHealth});
+                            } else {
+                              // GAME OVER
+                              this.setState({gameOver:true});
+                                setTimeout(
+                                  function() {
+                                    this.backToDefaults();                
+                                  }.bind(this), 3000); 
+                            }
+                      
+                      // deal damage to boss
+                      let playerDamage = Math.round((Math.random() * ((this.state.damage * this.state.level))+20)/1.3);
+                      let newBossHealth = boss.health - playerDamage;
+                      this.setState({boss: {attack: this.state.boss.attack,
+                                            health:newBossHealth}})
+
+                      } 
+      } else {
       newWorldMap[playerRowIndex][playerColumnIndex] = 0; // set starting cell to floor
       newWorldMap[newPlayerRowIndex][newPlayerColumnIndex] = 2; // set target cell to player
       this.setState({ 
@@ -338,7 +426,7 @@ class AppContainer extends Component {
     }
     }
 
-    
+    this.healthBonus();
   }
 
 render() {
@@ -355,6 +443,7 @@ render() {
               damage={this.state.damage}
               weapon={this.state.weapon}
               toggleDarkness={this.toggleDarkness}
+              xp={this.state.xp}
         />
         <World className="world" 
               gameOver={this.state.gameOver}
@@ -362,6 +451,7 @@ render() {
               coveredMap={this.state.coveredMap}
               movePlayer={this.movePlayer}
               enemies={this.state.enemies}
+              bonus={this.state.bonusNotGiven}
         />
         </div>     
     );

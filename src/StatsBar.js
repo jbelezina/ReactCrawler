@@ -14,6 +14,8 @@ class StatsBar extends Component {
       <li> Weapon: {this.props.weapon} </li>
       <li className="divider">|</li>
       <li> Damage: {this.props.damage} </li>
+      <li className="divider">|</li>
+      <li> XP: {this.props.xp} </li>
       <li><button onClick={this.props.toggleDarkness}>Toggle Darkness</button></li>
       <li><button>Right</button></li>
       <li><button>Left</button></li>

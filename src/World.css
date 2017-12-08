@@ -31,6 +31,13 @@
   float:left;
 }
 
+.boss {
+  height: 50px;
+  width: 50px;
+  float:left;
+  background-color: red;
+}
+
 .darkness {
   height: 50px;
   width: 50px;
